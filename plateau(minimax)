@@ -1,0 +1,35 @@
+#ifndef PLATEAU_H
+#define PLATEAU_H
+
+#include <vector>
+#include "Case.h"
+
+class Plateau {
+private:
+    int lignes;
+    int colonnes;
+    std::vector<std::vector<Case>> plateau;
+
+    // Nouvelle fonction d'évaluation
+    int evaluerPosition(char symbole) const;
+
+    // Fonctions de vérification de la victoire
+    bool verifierLigne(int ligne, int colonne, char symbole) const;
+    bool verifierColonne(int ligne, int colonne, char symbole) const;
+    bool verifierDiagonale(int ligne, int colonne, char symbole) const;
+
+public:
+    Plateau(int l, int c);
+    void afficher() const;
+    bool caseEstVide(int ligne, int colonne) const;
+    bool placerPion(int colonne, char symbole);
+    int obtenirNbLignes() const;
+    int obtenirNbColonnes() const;
+    bool verifierVictoire(int ligne, int colonne, char symbole) const;
+
+    // Fonction Minimax
+    int minimax(int profondeur, bool estMaximisant, char symboleIA, char symboleAdversaire, int alpha, int beta);
+    int trouverMeilleurCoup(char symboleIA, char symboleAdversaire);
+};
+
+#endif
