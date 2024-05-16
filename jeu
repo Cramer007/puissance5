@@ -1,0 +1,32 @@
+void Jeu::demarrer() {
+    while (true) {
+        joueurCourant = &joueurs[tour % joueurs.size()];
+        plateau.afficher();
+        std::cout << joueurCourant->obtenirNom() << " (" << joueurCourant->obtenirSymbole() << "), choisissez une colonne : ";
+        int colonne;
+        if (joueurCourant->estUnIA()) {
+            colonne = joueurCourant->choisirColonneMinimax(plateau, joueurCourant == &joueurs[0] ? joueurs[1].obtenirSymbole() : joueurs[0].obtenirSymbole());
+            std::cout << colonne << std::endl;
+        } else {
+            std::cin >> colonne;
+        }
+
+        if (estMouvementValide(colonne)) {
+            int ligne;
+            for (ligne = plateau.obtenirNbLignes() - 1; ligne >= 0; --ligne) {
+                if (plateau.caseEstVide(ligne, colonne)) {
+                    plateau.placerPion(colonne, joueurCourant->obtenirSymbole());
+                    break;
+                }
+            }
+            if (partieEstTerminee(ligne, colonne)) {
+                plateau.afficher();
+                std::cout << joueurCourant->obtenirNom() << " a gagné !" << std::endl;
+                break;
+            }
+            tour++;
+        } else {
+            std::cout << "Mouvement invalide. Essayez encore." << std::endl;
+        }
+    }
+}
