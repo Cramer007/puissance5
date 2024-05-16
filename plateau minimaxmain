@@ -1,0 +1,98 @@
+#include "Plateau.h"
+#include <iostream>
+#include <algorithm>
+#include <limits.h>
+
+// Fonctions d'évaluation et minimax
+int Plateau::evaluerPosition(char symbole) const {
+    // Simplified evaluation function: count number of 4-in-a-rows
+    int score = 0;
+    // Example: You can extend this to evaluate rows, columns, and diagonals
+    // For simplicity, let's count 4-in-a-rows for now
+    for (int i = 0; i < lignes; ++i) {
+        for (int j = 0; j < colonnes - 4; ++j) {
+            int count = 0;
+            for (int k = 0; k < 5; ++k) {
+                if (plateau[i][j + k].obtenirContenu() == symbole) {
+                    count++;
+                }
+            }
+            if (count == 4) {
+                score++;
+            }
+        }
+    }
+    // Repeat for columns and diagonals
+    return score;
+}
+
+int Plateau::minimax(int profondeur, bool estMaximisant, char symboleIA, char symboleAdversaire, int alpha, int beta) {
+    if (profondeur == 0 || verifierVictoire(symboleIA) || verifierVictoire(symboleAdversaire)) {
+        return evaluerPosition(symboleIA) - evaluerPosition(symboleAdversaire);
+    }
+
+    if (estMaximisant) {
+        int meilleurScore = INT_MIN;
+        for (int j = 0; j < colonnes; ++j) {
+            if (caseEstVide(0, j)) {
+                for (int i = lignes - 1; i >= 0; --i) {
+                    if (caseEstVide(i, j)) {
+                        plateau[i][j].placerPion(symboleIA);
+                        int score = minimax(profondeur - 1, false, symboleIA, symboleAdversaire, alpha, beta);
+                        plateau[i][j].placerPion(' ');
+                        meilleurScore = std::max(meilleurScore, score);
+                        alpha = std::max(alpha, score);
+                        if (beta <= alpha) {
+                            break;
+                        }
+                        break;
+                    }
+                }
+            }
+        }
+        return meilleurScore;
+    } else {
+        int meilleurScore = INT_MAX;
+        for (int j = 0; j < colonnes; ++j) {
+            if (caseEstVide(0, j)) {
+                for (int i = lignes - 1; i >= 0; --i) {
+                    if (caseEstVide(i, j)) {
+                        plateau[i][j].placerPion(symboleAdversaire);
+                        int score = minimax(profondeur - 1, true, symboleIA, symboleAdversaire, alpha, beta);
+                        plateau[i][j].placerPion(' ');
+                        meilleurScore = std::min(meilleurScore, score);
+                        beta = std::min(beta, score);
+                        if (beta <= alpha) {
+                            break;
+                        }
+                        break;
+                    }
+                }
+            }
+        }
+        return meilleurScore;
+    }
+}
+
+int Plateau::trouverMeilleurCoup(char symboleIA, char symboleAdversaire) {
+    int meilleurScore = INT_MIN;
+    int meilleurCoup = -1;
+
+    for (int j = 0; j < colonnes; ++j) {
+        if (caseEstVide(0, j)) {
+            for (int i = lignes - 1; i >= 0; --i) {
+                if (caseEstVide(i, j)) {
+                    plateau[i][j].placerPion(symboleIA);
+                    int score = minimax(5, false, symboleIA, symboleAdversaire, INT_MIN, INT_MAX);
+                    plateau[i][j].placerPion(' ');
+                    if (score > meilleurScore) {
+                        meilleurScore = score;
+                        meilleurCoup = j;
+                    }
+                    break;
+                }
+            }
+        }
+    }
+    return meilleurCoup;
+}
