@@ -5,10 +5,10 @@
 
 // Fonctions d'évaluation et minimax
 int Plateau::evaluerPosition(char symbole) const {
-    // Simplified evaluation function: count number of 4-in-a-rows
+  
     int score = 0;
-    // Example: You can extend this to evaluate rows, columns, and diagonals
-    // For simplicity, let's count 4-in-a-rows for now
+    
+    
     for (int i = 0; i < lignes; ++i) {
         for (int j = 0; j < colonnes - 4; ++j) {
             int count = 0;
