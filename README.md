@@ -1,4 +1,4 @@
-# puissance5
+# puissance5 (réalisé par Adrien Gaucher, Terence Fernandes et Augustin Fregnaux)
 
 le code compile parfaitement. nous avons testé différentes parties avec différentes tailles de grilles avec deux joueurs humains ou un joueur humain et un joueur machine (mode aléatoire) et le jeu compile jusqu'à obtention d'une victoire par l'un des camps.
 
