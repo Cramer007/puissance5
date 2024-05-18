@@ -14,3 +14,4 @@ organisation pour coder le projet sur github et en présentiel : un premier diag
 
 concernant le diragramme de classe nous avons fait le choix d'intégrer les fonctions "estunIA" et "aléatoire" dans la classe Joueur car nous considérons la machine comme un joueur a part entière. les"+" et "-" correspondent aux variables respectivement publique et privé.
 
+nous avons tout de même étudié la question d'utiliser Cmake ou MakeFile. Même si nous avons travaillé en trio en open source sur le code, utiliser des extensions pour automatiser le build, faciliter la collaboration et gérer quelques tests auraient été moins efficace que de faire simplement ensemble le code en présentiel.(ce que nous avons fait).  
