@@ -1,5 +1,7 @@
 # puissance5
 
+le code compile parfaitement. nous avons testé différentes parties avec différentes tailles de grilles avec deux joueurs humains ou un joueur humain et un joueur machine (mode aléatoire) et le jeu compile jusqu'à obtention d'une victoire par l'un des camps.
+
 l'IA qui calcule le jeu est aléatoire et on peut jouer à 2 joueurs. 
 
 on peut faire en sorte de demander au user le nombre de colonnes et de lignes de la grille 
